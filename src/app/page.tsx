@@ -6,8 +6,8 @@ export default function TelegramMiniAd() {
   const [isTelegram, setIsTelegram] = useState(false);
 
   useEffect(() => {
-    if (typeof window !== "undefined" && window.Telegram?.WebApp) {
-      window.Telegram.WebApp.ready();
+    if (typeof window !== "undefined" && (window as any).Telegram?.WebApp) {
+      (window as any).Telegram.WebApp.ready();
       setIsTelegram(true);
     }
   }, []);
@@ -16,8 +16,8 @@ export default function TelegramMiniAd() {
     const encoded = "aHR0cHM6Ly9zdGFrZS5nYW1lcy8/Yz1iN2ZkYjYxMmZl";
     const url = atob(encoded);
 
-    if (isTelegram && window.Telegram.WebApp.openLink) {
-      window.Telegram.WebApp.openLink(url);
+    if (isTelegram && (window as any).Telegram.WebApp.openLink) {
+      (window as any).Telegram.WebApp.openLink(url);
     } else {
       window.open(url, "_blank");
     }
