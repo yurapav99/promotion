@@ -1,0 +1,165 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Bounce animation for the button */
+@keyframes bounce {
+  0% {
+    transform: translateY(0);
+  }
+  20% {
+    transform: translateY(-5px);
+  }
+  40% {
+    transform: translateY(0);
+  }
+  60% {
+    transform: translateY(-3px);
+  }
+  80% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+/* Fade-in animation for the whole card */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animated-card {
+  animation: fadeIn 1s ease-out forwards;
+}
+
+.animated-button {
+  position: relative;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: white;
+  background-color: transparent;
+  border: 2px solid transparent; /* Border will be transparent initially */
+  border-radius: 8px;
+  overflow: hidden; /* To clip the content inside the border */
+  cursor: pointer;
+  outline: none;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Animation for dynamic border movement */
+.animated-button::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, #f39c12, #e74c3c, #9b59b6, #3498db);
+  background-size: 400% 400%;
+  border-radius: 8px;
+  z-index: -1;
+  animation: glowing-border 3s infinite linear;
+}
+
+/* Keyframes for glowing border effect */
+@keyframes glowing-border {
+  0% {
+    background-position: 400% 400%;
+  }
+  50% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 400% 400%;
+  }
+}
+
+/* Add hover effect for a subtle scale when hovered */
+.animated-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.4); /* More prominent shadow on hover */
+}
+/* Style for the image */
+.image-style {
+  border-radius: 10px; /* Rounded corners */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for hover effect */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Soft shadow around the image */
+  object-fit: cover; /* Ensures the image covers the container without stretching */
+  width: 100%; /* Full width to fit container */
+  height: auto; /* Maintain aspect ratio */
+ 
+}
+
+/* Continuous zoom animation */
+@keyframes zoom {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05); /* Zoom in */
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Hover effect for button (no change needed here) */
+.animated-button {
+  animation: bounce 1.5s ease-in-out infinite;
+}
+
+/* Bounce animation for the button */
+@keyframes bounce {
+  0% {
+    transform: translateY(0);
+  }
+  20% {
+    transform: translateY(-5px);
+  }
+  40% {
+    transform: translateY(0);
+  }
+  60% {
+    transform: translateY(-3px);
+  }
+  80% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
