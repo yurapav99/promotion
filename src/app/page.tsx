@@ -45,18 +45,19 @@ export default function TelegramMiniAd() {
           className="image-style mb-3"
         />
       </a>
-      <div className="text-sm text-amber-600 mb-1 font-medium">🔥 Trending Now</div>
-      <div className="text-md font-semibold mb-1 text-yellow-600">
-        <span className="font-bold">LuckyJackpot</span> – Play & Win Real Cash Instantly
+      <div className="text-sm text-blue-600 mb-1 font-medium">🚀 Популярно сегодня</div>
+      <div className="text-md font-semibold mb-1 text-gray-800">
+        <span className="font-bold">LuckyPortal</span> – Доступ к эксклюзивным предложениям
       </div>
-      <p className="text-sm text-gray-800 mb-4 leading-snug">
-        💸 Millions won every day. Don’t miss your chance to hit it BIG!
+      <p className="text-sm text-gray-700 mb-4 leading-snug">
+        Узнайте больше и получите максимум от вашего Telegram-опыта.
       </p>
+      <p className="text-xs text-gray-500 mb-2">🔞 Только для лиц 18 лет и старше</p>
       <button
         onClick={handleClick}
-        className="w-full animated-button text-white font-semibold text-sm py-2 mt-2 rounded-lg bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 transition cursor-pointer"
+        className="w-full animated-button text-white font-semibold text-sm py-2 mt-2 rounded-lg bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 transition cursor-pointer"
       >
-        WIN NOW →
+        Перейти →
       </button>
     </div>
   );
