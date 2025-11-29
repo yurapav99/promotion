@@ -1,6 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
+
+import candyImg from "../images/candy.png";
+import dogImg from "../images/dog_house.png";
+import olimpusImg from "../images/olimpus.png";
+import plinkoImg from "../images/plinko.png";
+
+import stakeIng from "../images/stake-logo-white.png";
 
 declare global {
   interface TelegramWebApp {
@@ -15,6 +23,45 @@ declare global {
   }
 }
 
+type GameCard = {
+  id: string;
+  tag: string;
+  url: string;          // ⬅ direct link
+  image: any;
+  casinoNameImg: any;
+};
+
+const GAME_CARDS: GameCard[] = [
+  {
+    id: "candy-slot",
+    tag: "EXCLUSIVE BONUS",
+    url: "https://example.com/?candy=1",
+    image: candyImg,
+    casinoNameImg: stakeIng,
+  },
+  {
+    id: "dog-house",
+    tag: "EXCLUSIVE BONUS",
+    url: "https://example.com/?doghouse=1",
+    image: olimpusImg,
+    casinoNameImg: stakeIng,
+  },
+  {
+    id: "plinko",
+    tag: "EXCLUSIVE BONUS",
+    url: "https://example.com/?plinko=1",
+    image: plinkoImg,
+    casinoNameImg: stakeIng,
+  },
+  {
+    id: "crypto-spin",
+    tag: "EXCLUSIVE BONUS",
+    url: "https://example.com/?olimpus=1",
+    image: dogImg,
+    casinoNameImg: stakeIng,
+  },
+];
+
 export default function TelegramMiniAd() {
   const [isTelegram, setIsTelegram] = useState(false);
 
@@ -25,40 +72,73 @@ export default function TelegramMiniAd() {
     }
   }, []);
 
-  const handleClick = () => {
-    const encoded = "aHR0cHM6Ly9zdGFrZS5nYW1lcy8/Yz1iN2ZkYjYxMmZl";
-    const url = atob(encoded);
-
+  const openLink = (url: string) => {
     if (isTelegram && window.Telegram?.WebApp.openLink) {
       window.Telegram.WebApp.openLink(url);
     } else {
-      window.open(url, "_blank");
+      window.open(url, "_blank", "noopener,noreferrer");
     }
   };
 
   return (
-    <div className="bg-white border border-gray-200 rounded-xl shadow-md max-w-sm w-full mx-auto p-4 animated-card">
-      <a href="#" onClick={handleClick} className="block">
-        <img
-          src="https://i.pinimg.com/736x/ef/19/9e/ef199e2c11ac55d0f331111ee31fff9b.jpg"
-          alt="Banner"
-          className="image-style mb-3"
-        />
-      </a>
-      <div className="text-sm text-blue-600 mb-1 font-medium">🚀 Популярно сегодня</div>
-      <div className="text-md font-semibold mb-1 text-gray-800">
-        <span className="font-bold">LuckyPortal</span> – Доступ к эксклюзивным предложениям
+    <div className="row justify-content-center m-0">
+      <div className="col-12 col-md-10 col-lg-8 p-0">
+        <div className="tg-shell animated-card">
+
+          <div className="tg-orb tg-orb-1" />
+          <div className="tg-orb tg-orb-2" />
+          <div className="tg-orb tg-orb-3" />
+
+          <header className="tg-hero">
+            <p className="tg-hero-eyebrow">Crypto Casino Promo</p>
+            <h1 className="tg-hero-title">
+              Unlock <span>Exclusive</span> Crypto Casino Bonuses
+            </h1>
+            <p className="tg-hero-subtitle">Choose a reward card below.</p>
+          </header>
+
+          <main className="tg-main">
+            <div className="row g-3">
+              {GAME_CARDS.map((game) => (
+                <div key={game.id} className="col-12 col-sm-6 col-lg-3 d-flex justify-content-center">
+                  <button
+                    type="button"
+                    className={`tg-game-card tg-${game.id}`}
+                    onClick={() => openLink(game.url)}
+                  >
+                    <div className="tg-game-tag">{game.tag}</div>
+
+                    <div className="tg-illustration">
+                      <Image src={game.image} alt={""} className="tg-img" priority />
+                    </div>
+
+                    <div className="tg-game-body">
+                      <Image
+                        src={game.casinoNameImg}
+                        alt="Casino Name"
+                        className="tg-casino-name-img"
+                        priority
+                      />
+                    </div>
+
+                    <div className="tg-game-cta">Play Now →</div>
+                  </button>
+                </div>
+              ))}
+            </div>
+
+            <div className="tg-info mt-3">
+              <p className="tg-info-line">
+                ⚡ Higher rakeback than regular links · ✦ Instant crypto deposits · 🎮 Plinko, slots, crash & more
+              </p>
+
+              <p className="tg-age-warning">
+                🔞 For adults only — 21+ required to participate. Please gamble responsibly.
+              </p>
+            </div>
+          </main>
+        </div>
       </div>
-      <p className="text-sm text-gray-700 mb-4 leading-snug">
-        Узнайте больше и получите максимум от вашего Telegram-опыта.
-      </p>
-      <p className="text-xs text-gray-500 mb-2">🔞 Только для лиц 18 лет и старше</p>
-      <button
-        onClick={handleClick}
-        className="w-full animated-button text-white font-semibold text-sm py-2 mt-2 rounded-lg bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 transition cursor-pointer"
-      >
-        Перейти →
-      </button>
     </div>
   );
 }

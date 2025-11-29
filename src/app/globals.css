@@ -1,165 +1,449 @@
-@import "tailwindcss";
-
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+html,
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  height: 100%;
 }
 
-/* Bounce animation for the button */
-@keyframes bounce {
-  0% {
-    transform: translateY(0);
-  }
-  20% {
-    transform: translateY(-5px);
-  }
-  40% {
-    transform: translateY(0);
-  }
-  60% {
-    transform: translateY(-3px);
-  }
-  80% {
-    transform: translateY(0);
-  }
-  100% {
-    transform: translateY(0);
-  }
+.app-root {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* or center if you want vertical centering */
+  padding: 24px 0;
+  background: #030712; /* same dark as outside shell */
 }
 
-/* Fade-in animation for the whole card */
-@keyframes fadeIn {
-  0% {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
 
-.animated-card {
-  animation: fadeIn 1s ease-out forwards;
-}
+/* ----- Purple neon promo shell ----- */
 
-.animated-button {
+.tg-shell {
   position: relative;
-  padding: 12px 24px;
-  font-size: 16px;
-  font-weight: bold;
-  text-transform: uppercase;
-  color: white;
-  background-color: transparent;
-  border: 2px solid transparent; /* Border will be transparent initially */
-  border-radius: 8px;
-  overflow: hidden; /* To clip the content inside the border */
-  cursor: pointer;
-  outline: none;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  border-radius: 28px;
+  padding: 18px 16px 20px;
+  background: radial-gradient(circle at top, #1f2937 0, #050316 55%);
+  box-shadow: 0 0 40px rgba(129, 140, 248, 0.55);
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  overflow: hidden;
 }
 
-/* Animation for dynamic border movement */
-.animated-button::before {
+/* Mobile: truly edge-to-edge, no shadow corners */
+@media (max-width: 576px) {
+  .tg-shell {
+    border-radius: 0;
+    box-shadow: none;
+  }
+}
+
+/* background orbs */
+
+.tg-orb {
+  position: absolute;
+  width: 220px;
+  height: 220px;
+  border-radius: 999px;
+  filter: blur(60px);
+  opacity: 0.7;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.tg-orb-1 {
+  background: #a855ff;
+  top: -80px;
+  left: -60px;
+}
+
+.tg-orb-2 {
+  background: #ec4899;
+  top: 40px;
+  right: -70px;
+}
+
+.tg-orb-3 {
+  background: #22c55e;
+  bottom: -80px;
+  left: 30%;
+}
+
+/* hero */
+
+.tg-hero {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  margin-bottom: 14px;
+}
+
+.tg-hero-eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 11px;
+  color: #9ca3af;
+  margin-bottom: 4px;
+}
+
+.tg-hero-title {
+  font-size: 20px;
+  line-height: 1.2;
+  margin: 0 0 4px;
+  color: #f9fafb;
+}
+
+.tg-hero-title span {
+  background: linear-gradient(90deg, #a855ff, #ec4899);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.tg-hero-subtitle {
+  font-size: 12px;
+  color: #9ca3af;
+}
+
+/* main */
+
+.tg-main {
+  position: relative;
+  z-index: 1;
+}
+
+/* make each column flex so cards can have equal height */
+.tg-main .row.g-3>[class^="col-"],
+.tg-main .row.g-3>[class*=" col-"] {
+  display: flex;
+  justify-content: center;
+}
+
+/* ------- CARD (vertical poster) ------- */
+
+/* MOBILE — wider but not full edge-to-edge */
+.tg-game-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 92%;
+  max-width: 300px;
+  margin: 0 auto;
+  padding: 10px 10px 12px;
+
+  /* ⬇️ IMPORTANT: don't force full column height */
+  height: auto;
+
+  padding: 14px 12px 16px;
+  border-radius: 22px;
+  border: 2px solid rgba(168, 85, 255, 0.9);
+  background: radial-gradient(circle at top, #1e1038 0, #020617 60%);
+  color: #f9fafb;
+  text-align: center;
+  cursor: pointer;
+  overflow: hidden;
+  isolation: isolate;
+  box-shadow: 0 0 24px rgba(168, 85, 255, 0.65);
+  transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease;
+}
+
+
+button.tg-game-card {
+  position: relative !important;
+  /* overrides any Bootstrap button rules */
+  overflow: hidden;
+}
+
+/* TABLET & DESKTOP — poster version */
+@media (min-width: 576px) {
+  .tg-game-card {
+    width: 100%;
+    max-width: 260px;
+  }
+}
+
+.tg-game-card::before {
   content: "";
   position: absolute;
-  top: -2px;
-  left: -2px;
-  right: -2px;
-  bottom: -2px;
-  background: linear-gradient(45deg, #f39c12, #e74c3c, #9b59b6, #3498db);
-  background-size: 400% 400%;
-  border-radius: 8px;
+  inset: -40%;
+  background: radial-gradient(circle at top, rgba(168, 85, 255, 0.7), transparent);
+  opacity: 0.35;
   z-index: -1;
-  animation: glowing-border 3s infinite linear;
 }
 
-/* Keyframes for glowing border effect */
-@keyframes glowing-border {
+.tg-game-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 0 40px rgba(168, 85, 255, 1);
+  border-color: #f472ff;
+}
+
+/* per-card colouring */
+
+.tg-dog-house::before {
+  background: radial-gradient(circle at top, rgba(248, 113, 113, 0.8), transparent);
+}
+
+.tg-plinko::before {
+  background: radial-gradient(circle at top, rgba(56, 189, 248, 0.8), transparent);
+}
+
+.tg-crypto-spin::before {
+  background: radial-gradient(circle at top, rgba(52, 211, 153, 0.8), transparent);
+}
+
+/* tag (EXCLUSIVE BONUS) */
+
+/* Diagonal "EXCLUSIVE BONUS" ribbon */
+.tg-game-tag {
+  position: absolute;
+  z-index: 5;
+  top: 22px;
+  left: -95px;
+
+  padding: 6px 96px 7px;
+  background: linear-gradient(135deg, #ff6bff, #b779ff);
+  border-radius: 999px;
+
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  text-align: center;
+
+  transform: rotate(-35deg);
+  transform-origin: center;
+
+  box-shadow: 0 0 14px rgba(168, 85, 255, 0.9);
+  pointer-events: none;
+
+  /* GOLD TEXT SHINE */
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+
+  background-size: 300%;
+  animation: goldWhiteShine 6s ease-in-out infinite;
+}
+
+@keyframes goldWhiteShine {
   0% {
-    background-position: 400% 400%;
+    background-position: -150% center;
+    background-image: linear-gradient(
+      90deg,
+      #ffffff 0%,
+      #f5d98a 25%,
+      #ffffff 50%,
+      #d4aa42 75%,
+      #ffffff 100%
+    );
   }
-  50% {
-    background-position: 0% 0%;
-  }
+
   100% {
-    background-position: 400% 400%;
+    background-position: 150% center;
+    background-image: linear-gradient(
+      90deg,
+      #ffffff 0%,
+      #f5d98a 25%,
+      #ffffff 50%,
+      #d4aa42 75%,
+      #ffffff 100%
+    );
+  }
+}
+/* illustration with image – tall area */
+
+/* MOBILE — wide banner-style image */
+.tg-illustration {
+  position: relative;
+  width: 100%;
+  padding-top: 115%;
+  /* tall image on mobile */
+  border-radius: 20px;
+  margin-bottom: 12px;
+  overflow: hidden;
+}
+
+/* DESKTOP — revert back to poster ratio */
+@media (min-width: 576px) {
+  .tg-illustration {
+    padding-top: 115%;
+    /* original size */
   }
 }
 
-/* Add hover effect for a subtle scale when hovered */
-.animated-button:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.4); /* More prominent shadow on hover */
-}
-/* Style for the image */
-.image-style {
-  border-radius: 10px; /* Rounded corners */
-  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for hover effect */
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Soft shadow around the image */
-  object-fit: cover; /* Ensures the image covers the container without stretching */
-  width: 100%; /* Full width to fit container */
-  height: auto; /* Maintain aspect ratio */
- 
+.tg-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* fills the box, same height for all */
 }
 
-/* Continuous zoom animation */
-@keyframes zoom {
+/* text */
+
+.tg-game-body {
+  margin-bottom: 8px;
+  flex-grow: 0;
+  /* don't stretch */
+}
+
+.tg-game-title {
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin: 0 0 4px;
+}
+
+.tg-game-bonus {
+  font-size: 11px;
+  color: #f9fafb;
+  opacity: 0.9;
+  margin: 0;
+}
+
+/* CTA */
+
+.tg-game-cta {
+  position: relative;
+  margin-top: 10px;
+
+  /* FONT */
+  font-family: "Quicksand", sans-serif;
+  font-weight: 900;
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-align: center;
+
+  /* SHAPE */
+  padding: 12px 0;
+  border-radius: 999px;
+  border: none;
+
+  /* PUFFY GRADIENT */
+  background: linear-gradient(
+    180deg,
+    #ffb7ff 0%,
+    #ff79ff 40%,
+    #d44aff 100%
+  );
+  color: #fff;
+
+  /* SOFT PUFFY EFFECT */
+  box-shadow:
+    inset 0 -4px 8px rgba(255, 255, 255, 0.25),   /* soft inner highlight */
+    inset 0 4px 12px rgba(0, 0, 0, 0.25),         /* inner base shadow */
+    0 0 18px rgba(255, 120, 255, 0.85),           /* outer neon glow */
+    0 6px 14px rgba(0, 0, 0, 0.4);               /* soft drop shadow */
+
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* PRESSED / HOVER EFFECT */
+.tg-game-cta:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow:
+    inset 0 -3px 6px rgba(255, 255, 255, 0.3),
+    inset 0 3px 8px rgba(0, 0, 0, 0.2),
+    0 0 28px rgba(255, 120, 255, 1),
+    0 8px 18px rgba(0, 0, 0, 0.45);
+} 
+
+/* glowing outline ring like in your image */
+.tg-game-cta::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: 2px solid rgba(236, 72, 255, 0.7);
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+/* subtle hover */
+.tg-game-card:hover .tg-game-cta {
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.12),
+    0 0 26px rgba(236, 72, 255, 1),
+    0 10px 22px rgba(15, 23, 42, 0.95);
+  transform: translateY(-1px);
+}
+
+/* info */
+
+.tg-info {
+  margin-top: 16px;
+  border-radius: 18px;
+  padding: 10px 14px;
+  background: radial-gradient(circle at top, rgba(15, 23, 42, 0.98), rgba(3, 7, 18, 0.98));
+  border: 1px solid rgba(148, 163, 184, 0.45);
+  box-shadow: 0 0 24px rgba(15, 23, 42, 0.9);
+}
+
+.tg-info-line {
+  font-size: 12px;
+  color: #e5e7eb;
+  margin: 0 0 4px;
+  line-height: 1.4;
+}
+
+.tg-age-warning {
+  font-size: 11px;
+  color: #9ca3af;
+  margin: 0;
+}
+
+/* smooth floating animation for game image */
+.tg-illustration .tg-img {
+  will-change: transform;
+  animation: tg-float 8s ease-in-out infinite alternate;
+}
+
+.tg-illustration::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 40%;  /* adjust fade height as needed */
+
+  background: linear-gradient(
+    to bottom,
+    rgba(30, 16, 56, 0) 0%,     /* transparent, start at image */
+    rgba(30, 16, 56, 0.4) 50%,  /* mid fade */
+    rgba(2, 6, 23, 0.75) 100%   /* blends into card bg color */
+  );
+
+  pointer-events: none;
+  z-index: 2;
+}
+@keyframes tg-float {
   0% {
-    transform: scale(1);
+    transform: translateY(-6px) scale(1.02);
   }
-  50% {
-    transform: scale(1.05); /* Zoom in */
-  }
+
   100% {
-    transform: scale(1);
+    transform: translateY(6px) scale(1.02);
   }
 }
 
-/* Hover effect for button (no change needed here) */
-.animated-button {
-  animation: bounce 1.5s ease-in-out infinite;
+/* respect reduced-motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .tg-illustration .tg-img {
+    animation: none;
+    transform: none;
+  }
 }
 
-/* Bounce animation for the button */
-@keyframes bounce {
-  0% {
-    transform: translateY(0);
-  }
-  20% {
-    transform: translateY(-5px);
-  }
-  40% {
-    transform: translateY(0);
-  }
-  60% {
-    transform: translateY(-3px);
-  }
-  80% {
-    transform: translateY(0);
-  }
-  100% {
-    transform: translateY(0);
-  }
+.tg-casino-name-img {
+  max-height: 50px;
+  width: auto;
+  display: block;
+  object-fit: contain;
+
+  margin: -25px auto 10px;
+  /* 👈 pulls logo upward into image */
+  position: relative;
+  z-index: 5;
+  filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.15));
 }

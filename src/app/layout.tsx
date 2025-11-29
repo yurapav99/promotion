@@ -1,6 +1,7 @@
 // app/layout.tsx
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import "bootstrap/dist/css/bootstrap.min.css";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -20,13 +21,20 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-50 min-h-screen flex items-center justify-center`}>
-        {children}
+      <head>
+        {/* Orbitron font for PLAY NOW button */}
+        <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600;700&display=swap" rel="stylesheet" />
+      </head>
+
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-dark text-light`}
+      >
+         <div className="app-root">
+          <div className="container-fluid px-0">{children}</div>
+        </div>
       </body>
     </html>
   );
