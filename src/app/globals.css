@@ -302,14 +302,18 @@ button.tg-game-card {
   padding: 0 22px 16px;
   /* left/right space inside card */
   display: flex;
+  flex-direction: column;
   align-items: center;
   /* ← centers logo */
   justify-content: center;
 }
 
-.tg-game-body > span {
+.tg-game-body>span {
   display: flex !important;
+  align-items: center;
   justify-content: center;
+  margin: 0 auto !important;
+  width: 100%;
 }
 
 .tg-game-title {
@@ -385,6 +389,7 @@ button.tg-game-card {
     max-width: 230px;
   }
 }
+
 /* glowing outline ring */
 .tg-game-cta::before {
   content: "";
@@ -570,6 +575,20 @@ button.tg-game-card {
   position: relative;
   z-index: 5;
   filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.15));
+}
+
+@media (max-width: 480px) {
+  .tg-casino-name-img {
+    margin: -25px 0 10px !important;  /* remove auto centering */
+    transform: translateX(0) !important;
+  }
+
+  /* Force Next.js wrapper to center */
+  .tg-game-body > span {
+    display: flex !important;
+    justify-content: center !important;
+    width: 100% !important;
+  }
 }
 
 .tg-plinko .tg-casino-name-img,
