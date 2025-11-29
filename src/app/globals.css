@@ -299,6 +299,8 @@ button.tg-game-card {
 /* text */
 
 .tg-game-body {
+  width: 100%;
+  text-align: center;
   padding: 0 22px 16px;
   /* left/right space inside card */
   display: flex;
@@ -309,11 +311,9 @@ button.tg-game-card {
 }
 
 .tg-game-body>span {
-  display: flex !important;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto !important;
-  width: 100%;
+  display: inline-block;
+  /* allow text-align:center to work */
+  text-align: center;
 }
 
 .tg-game-title {
@@ -579,12 +579,13 @@ button.tg-game-card {
 
 @media (max-width: 480px) {
   .tg-casino-name-img {
-    margin: -25px 0 10px !important;  /* remove auto centering */
+    margin: -25px 0 10px !important;
+    /* remove auto centering */
     transform: translateX(0) !important;
   }
 
   /* Force Next.js wrapper to center */
-  .tg-game-body > span {
+  .tg-game-body>span {
     display: flex !important;
     justify-content: center !important;
     width: 100% !important;
