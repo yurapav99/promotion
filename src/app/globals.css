@@ -7,9 +7,11 @@ body {
   min-height: 100vh;
   display: flex;
   justify-content: center;
-  align-items: flex-start; /* or center if you want vertical centering */
+  align-items: flex-start;
+  /* or center if you want vertical centering */
   padding: 24px 0;
-  background: #030712; /* same dark as outside shell */
+  background: #030712;
+  /* same dark as outside shell */
 }
 
 
@@ -122,10 +124,10 @@ body {
   position: relative;
   display: flex;
   flex-direction: column;
+  overflow: visible;
   width: 92%;
   max-width: 300px;
   margin: 0 auto;
-  padding: 10px 10px 12px;
 
   /* ⬇️ IMPORTANT: don't force full column height */
   height: auto;
@@ -141,6 +143,8 @@ body {
   isolation: isolate;
   box-shadow: 0 0 24px rgba(168, 85, 255, 0.65);
   transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease;
+  perspective: 700px;
+  transform-style: preserve-3d;
 }
 
 
@@ -201,52 +205,65 @@ button.tg-game-card {
   border-radius: 999px;
 
   font-size: 9px;
-  font-weight: 700;
+  font-weight: 800;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   white-space: nowrap;
   text-align: center;
 
-  transform: rotate(-35deg);
+  /* base transform */
   transform-origin: center;
 
   box-shadow: 0 0 14px rgba(168, 85, 255, 0.9);
   pointer-events: none;
 
-  /* GOLD TEXT SHINE */
+  /* gold shimmer on text */
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
 
   background-size: 300%;
-  animation: goldWhiteShine 6s ease-in-out infinite;
+
+  /* ✨ shimmer + depth loop */
+  animation:
+    goldWhiteShine 6s linear infinite,
+     tagSwing 3.5s ease-in-out infinite;
 }
 
 @keyframes goldWhiteShine {
   0% {
     background-position: -150% center;
-    background-image: linear-gradient(
-      90deg,
-      #ffffff 0%,
-      #f5d98a 25%,
-      #ffffff 50%,
-      #d4aa42 75%,
-      #ffffff 100%
-    );
+    background-image: linear-gradient(90deg,
+        #ffffff 0%,
+        #f5d98a 25%,
+        #ffffff 50%,
+        #d4aa42 75%,
+        #ffffff 100%);
   }
 
   100% {
     background-position: 150% center;
-    background-image: linear-gradient(
-      90deg,
-      #ffffff 0%,
-      #f5d98a 25%,
-      #ffffff 50%,
-      #d4aa42 75%,
-      #ffffff 100%
-    );
+    background-image: linear-gradient(90deg,
+        #ffffff 0%,
+        #f5d98a 25%,
+        #ffffff 50%,
+        #d4aa42 75%,
+        #ffffff 100%);
   }
 }
+
+@keyframes tagSwing {
+  0% {
+    transform: rotate(-35deg) rotateY(0deg);
+  }
+  50% {
+    transform: rotate(-35deg) rotateY(20deg);
+  }
+  100% {
+    transform: rotate(-35deg) rotateY(0deg);
+  }
+}
+
 /* illustration with image – tall area */
 
 /* MOBILE — wide banner-style image */
@@ -306,7 +323,6 @@ button.tg-game-card {
   position: relative;
   margin-top: 10px;
 
-  /* FONT */
   font-family: "Quicksand", sans-serif;
   font-weight: 900;
   font-size: 13px;
@@ -314,12 +330,10 @@ button.tg-game-card {
   text-transform: uppercase;
   text-align: center;
 
-  /* SHAPE */
   padding: 12px 0;
   border-radius: 999px;
   border: none;
 
-  /* PUFFY GRADIENT */
   background: linear-gradient(
     180deg,
     #ffb7ff 0%,
@@ -328,28 +342,18 @@ button.tg-game-card {
   );
   color: #fff;
 
-  /* SOFT PUFFY EFFECT */
   box-shadow:
-    inset 0 -4px 8px rgba(255, 255, 255, 0.25),   /* soft inner highlight */
-    inset 0 4px 12px rgba(0, 0, 0, 0.25),         /* inner base shadow */
-    0 0 18px rgba(255, 120, 255, 0.85),           /* outer neon glow */
-    0 6px 14px rgba(0, 0, 0, 0.4);               /* soft drop shadow */
+    inset 0 -4px 8px rgba(255, 255, 255, 0.25),
+    inset 0 4px 12px rgba(0, 0, 0, 0.25),
+    0 0 18px rgba(255, 120, 255, 0.85),
+    0 6px 14px rgba(0, 0, 0, 0.4);
 
   cursor: pointer;
+  overflow: hidden; /* 👈 important so shine is clipped */
   transition: all 0.2s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* PRESSED / HOVER EFFECT */
-.tg-game-cta:hover {
-  transform: translateY(-2px) scale(1.02);
-  box-shadow:
-    inset 0 -3px 6px rgba(255, 255, 255, 0.3),
-    inset 0 3px 8px rgba(0, 0, 0, 0.2),
-    0 0 28px rgba(255, 120, 255, 1),
-    0 8px 18px rgba(0, 0, 0, 0.45);
-} 
-
-/* glowing outline ring like in your image */
+/* glowing outline ring */
 .tg-game-cta::before {
   content: "";
   position: absolute;
@@ -360,7 +364,42 @@ button.tg-game-card {
   pointer-events: none;
 }
 
-/* subtle hover */
+/* ✨ moving light streak */
+.tg-game-cta::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -50%;             /* start fully outside */
+  width: 200%;            /* wide sweep across whole button */
+
+  background: linear-gradient(
+    120deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.15) 40%,
+    rgba(255, 255, 255, 0.9) 50%,
+    rgba(255, 255, 255, 0.15) 60%,
+    transparent 100%
+  );
+
+  transform: translateX(-100%);
+  pointer-events: none;
+  mix-blend-mode: screen;
+
+  animation: tg-cta-shine 2.5s ease-in-out infinite;
+}
+
+/* PRESSED / HOVER EFFECT */
+.tg-game-cta:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow:
+    inset 0 -3px 6px rgba(255, 255, 255, 0.3),
+    inset 0 3px 8px rgba(0, 0, 0, 0.2),
+    0 0 28px rgba(255, 120, 255, 1),
+    0 8px 18px rgba(0, 0, 0, 0.45);
+}
+
+/* extra hover boost for the whole card */
 .tg-game-card:hover .tg-game-cta {
   box-shadow:
     0 0 0 1px rgba(255, 255, 255, 0.12),
@@ -369,28 +408,54 @@ button.tg-game-card {
   transform: translateY(-1px);
 }
 
+/* 🔥 sweep animation: left → right */
+@keyframes tg-cta-shine {
+  0% {
+    transform: translateX(-120%);
+  }
+  100% {
+    transform: translateX(120%);
+  }
+}
 /* info */
 
+/* WRAPPER */
 .tg-info {
   margin-top: 16px;
-  border-radius: 18px;
-  padding: 10px 14px;
-  background: radial-gradient(circle at top, rgba(15, 23, 42, 0.98), rgba(3, 7, 18, 0.98));
-  border: 1px solid rgba(148, 163, 184, 0.45);
-  box-shadow: 0 0 24px rgba(15, 23, 42, 0.9);
+  padding: 14px 16px;
+  border-radius: 14px;
+
+  background: rgba(18, 18, 32, 0.6);
+  border: 1px solid rgba(140, 120, 255, 0.25);
+  backdrop-filter: blur(12px);
+
+  font-family: "Quicksand", sans-serif; /* ✔ applied */
 }
 
+/* MAIN LINE */
 .tg-info-line {
-  font-size: 12px;
-  color: #e5e7eb;
-  margin: 0 0 4px;
+  margin: 0;
+  padding-bottom: 6px;
+
+  font-size: 13px;
+  font-weight: 600;
+  color: #e6e6f5;
   line-height: 1.4;
+
+  text-align: center;
 }
 
+/* 18+ WARNING */
 .tg-age-warning {
-  font-size: 11px;
-  color: #9ca3af;
   margin: 0;
+
+  font-size: 12px;
+  font-weight: 500;
+  color: #c2c2dc;
+  opacity: 0.9;
+  text-align: center;
+
+  letter-spacing: 0.5px;
 }
 
 /* smooth floating animation for game image */
@@ -405,28 +470,39 @@ button.tg-game-card {
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 40%;  /* adjust fade height as needed */
+  height: 40%;
+  /* adjust fade height as needed */
 
-  background: linear-gradient(
-    to bottom,
-    rgba(30, 16, 56, 0) 0%,     /* transparent, start at image */
-    rgba(30, 16, 56, 0.4) 50%,  /* mid fade */
-    rgba(2, 6, 23, 0.75) 100%   /* blends into card bg color */
-  );
+  background: linear-gradient(to bottom,
+      rgba(30, 16, 56, 0) 0%,
+      /* transparent, start at image */
+      rgba(30, 16, 56, 0.4) 50%,
+      /* mid fade */
+      rgba(2, 6, 23, 0.75) 100%
+      /* blends into card bg color */
+    );
 
   pointer-events: none;
   z-index: 2;
 }
+
 @keyframes tg-float {
   0% {
-    transform: translateY(-6px) scale(1.02);
+    transform: translateY(0) scale(1.02);
   }
-
+  25% {
+    transform: translateY(-8px) scale(1.025);
+  }
+  50% {
+    transform: translateY(0) scale(1.02);
+  }
+  75% {
+    transform: translateY(8px) scale(1.015);
+  }
   100% {
-    transform: translateY(6px) scale(1.02);
+    transform: translateY(0) scale(1.02);
   }
 }
-
 /* respect reduced-motion preference */
 @media (prefers-reduced-motion: reduce) {
   .tg-illustration .tg-img {
@@ -446,4 +522,10 @@ button.tg-game-card {
   position: relative;
   z-index: 5;
   filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.15));
+}
+
+.tg-plinko .tg-casino-name-img,
+.tg-crypto-spin .tg-casino-name-img {
+  transform: scale(1.5);
+  transform-origin: center;
 }

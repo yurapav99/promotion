@@ -9,6 +9,10 @@ import olimpusImg from "../images/olimpus.png";
 import plinkoImg from "../images/plinko.png";
 
 import stakeIng from "../images/stake-logo-white.png";
+import bcgame from "../images/bc-game-logo.png"
+import betpanda from "../images/Betpanda-Casino-logo-white.png"
+import crypto_games from "../images/crypto-games-logo.png"
+
 
 declare global {
   interface TelegramWebApp {
@@ -35,30 +39,30 @@ const GAME_CARDS: GameCard[] = [
   {
     id: "candy-slot",
     tag: "EXCLUSIVE BONUS",
-    url: "https://example.com/?candy=1",
+    url: "https://stake.games/?c=b7fdb612fe",
     image: candyImg,
     casinoNameImg: stakeIng,
   },
   {
     id: "dog-house",
     tag: "EXCLUSIVE BONUS",
-    url: "https://example.com/?doghouse=1",
+    url: "https://bc.game/i-7odg5kx8-n/",
     image: olimpusImg,
-    casinoNameImg: stakeIng,
+    casinoNameImg: bcgame,
   },
   {
     id: "plinko",
     tag: "EXCLUSIVE BONUS",
-    url: "https://example.com/?plinko=1",
+    url: "https://betpandacasino.io/?referral=4QX499&type=registration&modal=user&isReferral=true",
     image: plinkoImg,
-    casinoNameImg: stakeIng,
+    casinoNameImg: betpanda,
   },
   {
     id: "crypto-spin",
     tag: "EXCLUSIVE BONUS",
-    url: "https://example.com/?olimpus=1",
+    url: "https://crypto-games.io?r=zSQlAf",
     image: dogImg,
-    casinoNameImg: stakeIng,
+    casinoNameImg: crypto_games,
   },
 ];
 
@@ -133,7 +137,7 @@ export default function TelegramMiniAd() {
               </p>
 
               <p className="tg-age-warning">
-                🔞 For adults only — 21+ required to participate. Please gamble responsibly.
+                🔞 For adults only — 18+ required to participate. Please gamble responsibly.
               </p>
             </div>
           </main>
