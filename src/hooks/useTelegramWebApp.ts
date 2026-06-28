@@ -1,10 +1,8 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect } from "react";
 
 export function useTelegramWebApp() {
-  const [isTelegram, setIsTelegram] = useState(false);
-
   useEffect(() => {
     const webApp = window.Telegram?.WebApp;
 
@@ -13,22 +11,18 @@ export function useTelegramWebApp() {
     }
 
     webApp.ready();
-    setIsTelegram(true);
   }, []);
 
-  const openExternalLink = useCallback(
-    (url: string) => {
-      const webApp = window.Telegram?.WebApp;
+  const openExternalLink = useCallback((url: string) => {
+    const webApp = window.Telegram?.WebApp;
 
-      if (isTelegram && webApp?.openLink) {
-        webApp.openLink(url);
-        return;
-      }
+    if (webApp?.openLink) {
+      webApp.openLink(url);
+      return;
+    }
 
-      window.open(url, "_blank", "noopener,noreferrer");
-    },
-    [isTelegram],
-  );
+    window.open(url, "_blank", "noopener,noreferrer");
+  }, []);
 
   return { openExternalLink };
 }
