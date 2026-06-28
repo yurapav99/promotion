@@ -1,36 +1,54 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Crypto Casino Promo
 
-## Getting Started
+Telegram mini app promo page built with Next.js, React, Bootstrap, and TypeScript.
 
-First, run the development server:
+## Run locally
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Start the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open the local URL printed in the terminal. Next usually uses:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```text
+http://localhost:3000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+If port 3000 is busy, Next will automatically choose another port, such as `http://localhost:3001`.
 
-## Learn More
+## Google Analytics
 
-To learn more about Next.js, take a look at the following resources:
+Create a `.env.local` file and add your GA4 measurement ID:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+NEXT_PUBLIC_GA_MEASUREMENT_ID=G-W043EYGXSC
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Restart `npm run dev` after changing `.env.local`. Analytics stays disabled until this value is set.
 
-## Deploy on Vercel
+For production, add the same environment variable in Vercel for:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```text
+https://promotion-lnea.vercel.app
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Production build
+
+```bash
+npm run build
+npm run start
+```
+
+## Checks
+
+```bash
+npm run lint
+```
