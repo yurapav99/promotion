@@ -5,12 +5,13 @@ import { trackPromoClick } from "@/lib/analytics";
 
 type PromoCardProps = {
   game: GameCard;
+  cardIndex: number;
   onOpen: (url: string) => void;
 };
 
-export function PromoCard({ game, onOpen }: PromoCardProps) {
+export function PromoCard({ game, cardIndex, onOpen }: PromoCardProps) {
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    trackPromoClick(game.name, game.url);
+    trackPromoClick(game.name, game.url, cardIndex + 1);
 
     // Inside Telegram WebApp, use the native openLink API
     if (window.Telegram?.WebApp?.openLink) {

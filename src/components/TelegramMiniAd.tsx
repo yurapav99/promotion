@@ -21,7 +21,7 @@ export function TelegramMiniAd() {
 
           <main className="tg-main">
             <div className="row g-3">
-              {GAME_CARDS.map((game) => (
+              {GAME_CARDS.map((game, index) => (
                 <div
                   key={game.id}
                   className={
@@ -30,7 +30,7 @@ export function TelegramMiniAd() {
                       : "col-12 col-sm-6 col-lg-4 d-flex justify-content-center"
                   }
                 >
-                  <PromoCard game={game} onOpen={openExternalLink} />
+                  <PromoCard game={game} cardIndex={index} onOpen={openExternalLink} />
                 </div>
               ))}
             </div>
