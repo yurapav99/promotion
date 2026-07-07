@@ -16,6 +16,8 @@ export type GameCard = {
   url: string;
   image: StaticImageData;
   casinoLogo: StaticImageData;
+  /** Full CSS class string — kept as a static literal so build tools can detect it */
+  cardClass: string;
   featured?: boolean;
 };
 
@@ -27,6 +29,7 @@ export const GAME_CARDS: GameCard[] = [
     url: "https://stake.games/?c=b7fdb612fe",
     image: candyImage,
     casinoLogo: stakeLogo,
+    cardClass: "tg-game-card tg-candy-slot is-featured",
     featured: true,
   },
   {
@@ -36,6 +39,7 @@ export const GAME_CARDS: GameCard[] = [
     url: "https://bc.game/i-7odg5kx8-n/",
     image: olimpusImage,
     casinoLogo: bcGameLogo,
+    cardClass: "tg-game-card tg-dog-house",
   },
   {
     id: "plinko",
@@ -44,6 +48,7 @@ export const GAME_CARDS: GameCard[] = [
     url: "https://betpandacasino.io/?referral=4QX499&type=registration&modal=user&isReferral=true",
     image: plinkoImage,
     casinoLogo: betpandaLogo,
+    cardClass: "tg-game-card tg-plinko",
   },
   {
     id: "crypto-spin",
@@ -52,5 +57,6 @@ export const GAME_CARDS: GameCard[] = [
     url: "https://crypto-games.io?r=zSQlAf",
     image: dogHouseImage,
     casinoLogo: cryptoGamesLogo,
+    cardClass: "tg-game-card tg-crypto-spin",
   },
 ];
