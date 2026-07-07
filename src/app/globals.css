@@ -124,11 +124,19 @@ body {
   transform-style: preserve-3d;
 }
 
-
-button.tg-game-card {
+a.tg-game-card {
   position: relative !important;
-  /* overrides any Bootstrap button rules */
   overflow: hidden;
+  /* remove default anchor styles */
+  text-decoration: none;
+  color: inherit;
+  -webkit-tap-highlight-color: transparent;
+}
+a.tg-game-card:hover,
+a.tg-game-card:focus,
+a.tg-game-card:active {
+  text-decoration: none;
+  color: inherit;
 }
 
 /* TABLET & DESKTOP — poster version */
